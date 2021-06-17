@@ -4,7 +4,4 @@ Demo nach Vorlage von aurel2152's Shader auf Shadertoy. https://www.shadertoy.co
 
 Requiers:
 
--Python 3
--Pygame
--Numpy
--PyOpenGL
+-Python 3 -Pygame -Numpy -PyOpenGL
