@@ -19,30 +19,20 @@ FRAGMENT_SHADER = """
 #define fragCoord gl_FragCoord.xy
 uniform float iTime;
 uniform vec2  iResolution;
-out vec4 fragColor;
+out vec4 O;
 
-float rand(vec2 co){
-    return fract(sin(dot(co.xy ,vec2(13.0,78.0))) * 43758.0);
-}
+#define rand(U)  fract(sin(dot(U ,vec2(13.0,78.))) * 43759.0)
 
 void main()
 {
-    vec2 uv = fragCoord.xy / iResolution.xy;
+	vec2 U = 3*(fragCoord.xy / iResolution.xy); 
+    float rY = U.y - rand(vec2(U.x, floor(U.y))) / 5 + iTime * 5,
+           c = rY  - rand(vec2(U.x, floor(rY ))) / 10,
+           s = 1. - fract(c);
     
-    uv *= 3.0;
-    
-   
-    float randY = uv.y - rand(vec2(uv.x, floor(uv.y))) / 5.0 + iTime * 5.0;
-    float g = fract(randY);
-    float r = floor(randY);
-    
-    float c = g - rand(vec2(uv.x, r)) / 10;
-    float s = 1. - fract(c);
-    
-	fragColor =  vec4(1, 1, 1, 1) - s * vec4(1, 0.7, 0, 0);
+	O = vec4(1,1,1,1) - s * vec4(1,.7,0,0);
 }
 """
-
 
 class Main(object):
     def __init__(self):
